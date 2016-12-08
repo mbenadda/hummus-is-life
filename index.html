@@ -1,56 +1,48 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="taskMgr">
 <head>
-  <title>Task Manager</title>
-
-  <link rel="stylesheet" type="text/css" href="node_modules/bootstrap/dist/css/bootstrap.css">
-  <link rel="stylesheet" type="text/css" href="style.css">
+    <meta charset="utf-8" />
+    <title>Task Manager</title>
+    <link rel="stylesheet" type="text/css" href="node_modules/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script type="text/javascript" src="node_modules/angular/angular.js"></script>
+    <script type="text/javascript" src="index.js"></script>
 </head>
 <body>
-  <div class="container">
-    <div class="row with-padding">
-      <div class="col-sm-6">
-        <h1>Coding exercise</h1>
-        <p>
-          Implement a task manager using Angular.JS 1.X. At a minimum, users should be able to add new tasks using the form, which then appear in the list. Other features are optional, although deleting tasks can be an interesting feature to implement.
-        </p>
-        <p>
-          You can use whatever angular constructs you want to implement the basic functionality in the existing page. Feel free to install other libraries aswell.
-        </p>
-        <p>
-          Once you're done, please use this as an opportunity to show us what you're good at, the kind of things you want to work on.
-        </p>
-        <p>
-          Possible improvements could include an additional feature, a better UX, a focus on the internal data structures, some client-server interaction logic, unit tests, a mobile-first experience, offline storage, or something else entirely.
-        </p>
+  <div class="container" ng-controller='todoCtrl'>
+      <div class="row with-padding">
+        <div class="col-sm-6">
+          <h1>Coding exercise</h1>
+        </div>
       </div>
-    </div>
-
-    <div class="row with-padding">
-      <div class="col-sm-6">
-        <h1>Task Manager</h1>
+      <div class="row with-padding">
+        <div class="col-sm-6">
+          <h1>Task Manager</h1>
+        </div>
       </div>
-    </div>
-
-    <div class="row with-padding">
-      <div class="col-sm-6">
-        <form>
-          <input type="text" name="newTask" class="form-control" placeholder="Add a new task">
-        </form>
+      <div class="row with-padding">
+        <div class="col-sm-6">
+          <form ng-submit="addTodo()">
+            <input type="text" name="newTask" class="form-control" placeholder="Add a new task" ng-model="newTodo">
+          </form>
+        </div>
       </div>
-    </div>
-
-    <div class="row with-padding">
-      <div class="col-sm-6">
-        <ul class="list-group">
-          <li class="list-group-item">Use angular!</li>
-          <li class="list-group-item">Implement the task manager</li>
-          <li class="list-group-item">Add your personal touch</li>
-        </ul>
-      </div>
-    </div>
+      <article ng-show="todos.length">
+          <ul id="todo-list">
+             <div class="alert alert-info">
+                <li ng-repeat="todo in todos" ng-class="{completed: todo.completed}">
+                  <div class="view">
+                      <input class="mark" type="checkbox" ng-model="todo.completed" />
+                      <span>{{todo.title}}</span>
+                      <span class="close" ng-click="removeTodo(todo)">x</span>
+                  </div>
+              </li>
+          </div>
+          </ul>
+          <input id="mark-all" type="checkbox" ng-model="allChecked" ng-click="markAll(allChecked)" />
+          <label class="btn btn-info" for="mark-all">Tout cocher</label>
+          <button class="btn btn-danger" ng-click="clearCompletedTodos()">Supprimer les tâches cochées</button>
+      </article>
   </div>
-  
-  <script type="text/javascript" src="node_modules/angular/angular.js"></script>
 </body>
 </html>

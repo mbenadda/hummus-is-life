@@ -1,3 +1,8 @@
 .with-padding {
   padding: 20px 0;
 }
+.container {
+    float: none;
+    display: block;
+    margin: 0 auto;
+}
